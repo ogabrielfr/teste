@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apuração do 2º turno</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A virada de 2022, segundo a segundo, e a apuração de 2026 ao vivo com a sombra de 2022.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@600;700;800&family=Sofia+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/apuracao.css">
+<style>
+  .entradas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 16px;
+  }
+
+  .entrada {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    padding: 22px 22px 24px;
+    border-radius: var(--raio);
+    background: var(--superficie);
+    box-shadow: 0 0 0 1px var(--anel);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .entrada:hover {
+    box-shadow: 0 0 0 2px var(--tinta);
+  }
+
+  .entrada h2 {
+    margin: 0;
+    font-family: var(--fonte-placar);
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .entrada p {
+    margin: 0;
+    color: var(--tinta-2);
+  }
+
+  .entrada .ir {
+    font-family: var(--fonte-mono);
+    font-size: var(--t-13);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <p class="olho">Presidente · 2º turno · Lula × Bolsonaro</p>
+  <header class="cabecalho">
+    <h1>Duas noites de apuração</h1>
+    <p class="lide">Em 2022, Lula passou a maior parte da apuração atrás e virou com 68% das seções apuradas. Em 2026, ele enfrenta Flávio Bolsonaro no 2º turno, no domingo, 25 de outubro.</p>
+  </header>
+  <div class="entradas">
+    <a class="entrada" href="2022.html">
+      <span class="olho">30 de outubro de 2022</span>
+      <h2>A virada de 2022</h2>
+      <p>A totalização do TSE reproduzida segundo a segundo, com os momentos-chave, a gangorra das 18h42 e os votos que chegavam a cada 5 minutos.</p>
+      <span class="ir">Rever a noite →</span>
+    </a>
+    <a class="entrada" href="2026.html">
+      <span class="olho">25 de outubro de 2026</span>
+      <h2>2026 ao vivo, com a sombra de 2022</h2>
+      <p>A apuração lida direto do TSE a cada 15 segundos, desenhada por cima da curva de 2022, com os estados, cenários e aviso de virada.</p>
+      <span class="ir">Acompanhar →</span>
+    </a>
+  </div>
+  <footer class="notas">
+    <p>Dados: Tribunal Superior Eleitoral (Portal de Dados Abertos e arquivos de divulgação de resultados).</p>
+  </footer>
+</main>
+</body>
+</html>

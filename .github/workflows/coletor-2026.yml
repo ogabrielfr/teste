@@ -1,0 +1,32 @@
+# Grava a apuração do 2º turno de 2026 em dados/2026-2t-coleta.json, para a página
+# 2026.html mostrar a curva desde as 17h a quem a abrir mais tarde.
+#
+# Só roda se você ligar: rode à mão pela aba Actions (Run workflow) ou crie a variável
+# de repositório COLETOR_2026 com o valor "ligado" para a execução agendada de domingo.
+name: Coletor da apuração 2026
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 25/10, 19h37 UTC = 16h37 de Brasília. O GitHub pode atrasar o início em alguns minutos.
+    - cron: "37 19 25 10 *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coletor-2026
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    if: github.event_name == 'workflow_dispatch' || vars.COLETOR_2026 == 'ligado'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Coletar até o fim da apuração
+        run: |
+          git config user.name "coletor-apuracao"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          node scripts/coletor-2026.mjs --commit 360 --ate 2026-10-26T03:00:00Z

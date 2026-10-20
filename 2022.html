@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A virada de 2022</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Reprodução animada da apuração do 2º turno de 2022 entre Lula e Jair Bolsonaro, segundo a segundo, com os dados do TSE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@600;700;800&family=Sofia+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/apuracao.css">
+</head>
+<body>
+<main class="pagina">
+  <div class="topo">
+    <p class="olho">Apuração · Presidente · 2º turno · 30 de outubro de 2022</p>
+    <a class="trocar-versao" href="2026.html">Ver 2026 ao vivo, com a sombra de 2022 →</a>
+  </div>
+
+  <header class="cabecalho">
+    <h1>A virada de 2022</h1>
+    <p class="lide" id="lide">Reprodução da totalização do 2º turno entre Lula e Jair Bolsonaro, com os dados do TSE.</p>
+  </header>
+
+  <section class="placar" id="placar" aria-label="Placar da apuração no instante exibido">
+    <div class="cand c-a">
+      <div class="cand-nome"><span>Lula</span> <span class="cand-num">PT · 13</span></div>
+      <div class="cand-pct"><span id="pct-a">—</span><small>%</small></div>
+      <div class="cand-votos" id="votos-a">—</div>
+      <div class="cand-selo"><span class="selo" id="selo-a" hidden>À frente</span></div>
+    </div>
+    <div class="centro">
+      <div>
+        <div class="relogio" id="relogio">--:--:--</div>
+        <div class="relogio-data" id="relogio-data">30 out. 2022 · Brasília</div>
+      </div>
+      <div class="progresso">
+        <div class="progresso-trilho"><div class="progresso-cheio" id="progresso"></div></div>
+        <div class="progresso-rotulo"><strong id="pst">—</strong> das seções</div>
+      </div>
+      <span class="chip-lento" id="chip-lento" hidden>Câmera lenta</span>
+    </div>
+    <div class="cand c-b direita">
+      <div class="cand-nome"><span class="cand-num">PL · 22</span> <span>Jair Bolsonaro</span></div>
+      <div class="cand-pct"><span id="pct-b">—</span><small>%</small></div>
+      <div class="cand-votos" id="votos-b">—</div>
+      <div class="cand-selo"><span class="selo" id="selo-b" hidden>À frente</span></div>
+    </div>
+    <div class="placar-rodape">
+      <span id="diferenca">—</span>
+      <span id="falta">—</span>
+    </div>
+  </section>
+
+  <div class="controles" role="group" aria-label="Controles da reprodução">
+    <button class="tecla" id="tocar" type="button">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path id="icone-tocar" d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>
+      <span id="tocar-texto">Começar</span>
+    </button>
+    <button class="botao" id="reiniciar" type="button">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7a4.5 4.5 0 1 0 1.3-3.2M2.5 1.8v2.4h2.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Voltar às 17h
+    </button>
+    <div class="grupo">
+      <span class="grupo-rotulo" id="r-velocidade">Velocidade</span>
+      <div class="segmentado" role="radiogroup" aria-labelledby="r-velocidade">
+        <label><input type="radio" name="velocidade" value="0.5"><span>0,5×</span></label>
+        <label><input type="radio" name="velocidade" value="1" checked><span>1×</span></label>
+        <label><input type="radio" name="velocidade" value="2"><span>2×</span></label>
+        <label><input type="radio" name="velocidade" value="4"><span>4×</span></label>
+      </div>
+    </div>
+    <div class="grupo">
+      <span class="grupo-rotulo" id="r-eixo">Eixo horizontal</span>
+      <div class="segmentado" role="radiogroup" aria-labelledby="r-eixo">
+        <label><input type="radio" name="eixo" value="tempo" checked><span>Horário</span></label>
+        <label><input type="radio" name="eixo" value="pst"><span>% de seções</span></label>
+      </div>
+    </div>
+    <label class="alternar"><input type="checkbox" id="parar" checked> Parar nos momentos-chave</label>
+  </div>
+
+  <section class="painel" aria-labelledby="t-corrida">
+    <div class="painel-topo">
+      <div>
+        <h2 id="t-corrida">A corrida</h2>
+        <p class="painel-desc" id="desc-corrida">Percentual dos votos válidos de cada candidato. Os números marcam os momentos-chave; clique para ir até eles.</p>
+      </div>
+      <ul class="legenda">
+        <li><i class="chave k-a"></i>Lula</li>
+        <li><i class="chave k-b"></i>Jair Bolsonaro</li>
+      </ul>
+    </div>
+    <div class="grafico" id="g-corrida" tabindex="0" aria-label="Gráfico da corrida. Use as setas para percorrer a apuração."></div>
+    <div class="linha-tempo">
+      <label class="so-leitor" for="tempo">Instante da apuração</label>
+      <input type="range" id="tempo" min="0" max="1000" step="1" value="1000">
+      <div class="linha-tempo-legenda"><span>17h</span><span id="tempo-fim">21h · fim às 00h18</span></div>
+    </div>
+  </section>
+
+  <div class="duas-colunas">
+    <section class="painel" aria-labelledby="t-margem">
+      <div class="painel-topo">
+        <div>
+          <h2 id="t-margem">A diferença</h2>
+          <p class="painel-desc">Votos de vantagem de quem estava na frente. Acima da linha, Lula lidera; abaixo, Bolsonaro.</p>
+        </div>
+      </div>
+      <div class="grafico" id="g-margem"></div>
+    </section>
+    <section class="painel" aria-labelledby="t-lotes">
+      <div class="painel-topo">
+        <div>
+          <h2 id="t-lotes">Os votos que chegavam</h2>
+          <p class="painel-desc" id="desc-lotes">Parcela de Lula entre os votos válidos apurados a cada 5 minutos. Desde as 18h, Lula vencia quase todos os lotes, mesmo atrás no total.</p>
+        </div>
+        <ul class="legenda">
+          <li><i class="chave bloco k-a"></i>Lote vencido por Lula</li>
+          <li><i class="chave bloco k-b"></i>por Bolsonaro</li>
+        </ul>
+      </div>
+      <div class="grafico" id="g-lotes"></div>
+    </section>
+  </div>
+
+  <section class="painel" aria-labelledby="t-momentos">
+    <div class="painel-topo">
+      <div>
+        <h2 id="t-momentos">Momentos-chave</h2>
+        <p class="painel-desc">Horários e percentuais que marcaram a noite. Clique em um deles para ver o placar naquele instante.</p>
+      </div>
+    </div>
+    <ol class="momentos" id="momentos"></ol>
+  </section>
+
+  <section class="painel" aria-labelledby="t-tabela">
+    <details class="tabela">
+      <summary id="t-tabela">Tabela: a apuração de 15 em 15 minutos</summary>
+      <div class="tabela-envolve">
+        <table>
+          <thead>
+            <tr><th scope="col">Horário</th><th scope="col">Seções apuradas</th><th scope="col">Lula</th><th scope="col">Bolsonaro</th><th scope="col">Diferença (votos)</th><th scope="col">Na frente</th></tr>
+          </thead>
+          <tbody id="tabela"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <footer class="notas">
+    <h2>Sobre os dados</h2>
+    <p>Fonte: Tribunal Superior Eleitoral, <em>Histórico de totalização · Presidente · BR · 2º turno 2022</em> (Portal de Dados Abertos). O arquivo registra o total acumulado a cada instante em que a totalização foi atualizada: 5.286 registros, das 17h00min51s de 30 de outubro às 00h18min04s de 31 de outubro, no horário de Brasília.</p>
+    <p>Percentuais sobre os votos válidos, sem brancos e nulos. "Matematicamente eleito" marca o instante em que a vantagem passou a ser maior que o total de eleitores aptos das seções ainda não apuradas. A estimativa do que falta usa a proporção de votos válidos por eleitor apto já observada nas seções apuradas.</p>
+  </footer>
+  <div class="so-leitor" aria-live="polite" id="anuncio"></div>
+</main>
+<script src="dados/2022-2t-br.js"></script>
+<script src="assets/apuracao.js"></script>
+<script src="assets/pagina-2022.js"></script>
+</body>
+</html>

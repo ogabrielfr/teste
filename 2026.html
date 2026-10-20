@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apuração 2026 × 2022</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="versao-ao-vivo" content="https://ogabrielfr.github.io/teste/2026.html">
+<meta name="description" content="Apuração do 2º turno de 2026 entre Lula e Flávio Bolsonaro ao vivo, lida do TSE, com a curva de 2022 como sombra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@600;700;800&family=Sofia+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/apuracao.css">
+</head>
+<body>
+<main class="pagina">
+  <div class="topo">
+    <p class="olho">Apuração · Presidente · 2º turno · 25 de outubro de 2026</p>
+    <a class="trocar-versao" href="2022.html">← Rever a virada de 2022</a>
+  </div>
+
+  <header class="cabecalho">
+    <h1>2026 ao vivo, com a sombra de 2022</h1>
+    <p class="lide" id="lide">A partir das 17h de domingo, esta página lê a totalização do TSE a cada 15 segundos e desenha a corrida entre Lula e Flávio Bolsonaro por cima da curva de 2022, quando Lula virou sobre Jair Bolsonaro com 68% das seções apuradas.</p>
+  </header>
+
+  <div class="faixa-status" id="faixa-status">
+    <span class="status" id="status" data-estado="conectando"><i class="status-ponto" aria-hidden="true"></i><span id="status-texto">Conectando ao TSE…</span></span>
+    <span class="status-detalhe" id="status-detalhe"></span>
+    <a class="botao" id="abrir-ao-vivo" href="#" target="_blank" rel="noopener" hidden>Abrir a versão ao vivo</a>
+    <div class="grupo">
+      <button class="botao" id="simular" type="button">Ver uma simulação</button>
+      <button class="botao" id="atualizar" type="button">Atualizar agora</button>
+      <button class="botao" id="avisar" type="button" aria-pressed="false">Avisar quando a liderança mudar</button>
+    </div>
+  </div>
+
+  <div class="aviso-simulacao" id="aviso-simulacao" hidden>
+    <strong>Simulação com números fictícios.</strong>
+    <span>Os candidatos aparecem como A e B e nada aqui é resultado. Serve para ver como a página se comporta durante a apuração.</span>
+    <span class="grupo">
+      <button class="botao" id="nova-simulacao" type="button">Sortear outra</button>
+      <button class="botao" id="sair-simulacao" type="button">Voltar ao ao vivo</button>
+    </span>
+  </div>
+
+  <section class="placar" id="placar" aria-label="Placar da apuração de 2026">
+    <div class="marca-dagua" id="marca-dagua" hidden>Simulação</div>
+    <div class="cand c-a">
+      <div class="cand-nome"><span id="nome-a">Lula</span> <span class="cand-num" id="num-a">PT · 13</span></div>
+      <div class="cand-pct"><span id="pct-a">—</span><small>%</small></div>
+      <div class="cand-votos" id="votos-a">aguardando</div>
+      <div class="cand-selo"><span class="selo" id="selo-a" hidden>À frente</span></div>
+    </div>
+    <div class="centro">
+      <div>
+        <div class="relogio" id="relogio">--:--:--</div>
+        <div class="relogio-data" id="relogio-data">última totalização</div>
+      </div>
+      <div class="progresso">
+        <div class="progresso-trilho"><div class="progresso-cheio" id="progresso"></div></div>
+        <div class="progresso-rotulo"><strong id="pst">0%</strong> das seções</div>
+      </div>
+    </div>
+    <div class="cand c-b direita">
+      <div class="cand-nome"><span class="cand-num" id="num-b">PL · 22</span> <span id="nome-b">Flávio Bolsonaro</span></div>
+      <div class="cand-pct"><span id="pct-b">—</span><small>%</small></div>
+      <div class="cand-votos" id="votos-b">aguardando</div>
+      <div class="cand-selo"><span class="selo" id="selo-b" hidden>À frente</span></div>
+    </div>
+    <div class="placar-rodape">
+      <span id="diferenca">A apuração começa quando as urnas fecharem, às 17h.</span>
+      <span id="falta"></span>
+    </div>
+    <div class="placar-comparacao" id="comparacao">
+      <span class="chave sombra k-a" aria-hidden="true"></span>
+      <span id="comparacao-texto">Em 2022, Lula terminou com 50,90% contra 49,10% de Jair Bolsonaro, depois de passar a noite atrás até as 18h44.</span>
+    </div>
+  </section>
+
+  <div class="controles" role="group" aria-label="Opções dos gráficos">
+    <div class="grupo">
+      <span class="grupo-rotulo" id="r-eixo">Comparar no mesmo</span>
+      <div class="segmentado" role="radiogroup" aria-labelledby="r-eixo">
+        <label><input type="radio" name="eixo" value="pst" checked><span>% de seções apuradas</span></label>
+        <label><input type="radio" name="eixo" value="tempo"><span>horário</span></label>
+      </div>
+    </div>
+  </div>
+
+  <section class="painel" aria-labelledby="t-corrida">
+    <div class="painel-topo">
+      <div>
+        <h2 id="t-corrida">A corrida e a sombra</h2>
+        <p class="painel-desc" id="desc-corrida">Percentual dos votos válidos. As linhas finas são 2026; as faixas largas e claras são a noite de 2022, no mesmo ponto da apuração.</p>
+      </div>
+      <ul class="legenda">
+        <li><i class="chave k-a"></i><span id="leg-a">Lula 2026</span></li>
+        <li><i class="chave k-b"></i><span id="leg-b">Flávio Bolsonaro 2026</span></li>
+        <li><i class="chave sombra k-a"></i>Lula 2022</li>
+        <li><i class="chave sombra k-b"></i>Jair Bolsonaro 2022</li>
+      </ul>
+    </div>
+    <div class="grafico" id="g-corrida" tabindex="0" aria-label="Gráfico da corrida de 2026 com a sombra de 2022. Use as setas para percorrer."></div>
+  </section>
+
+  <div class="duas-colunas">
+    <section class="painel" aria-labelledby="t-margem">
+      <div class="painel-topo">
+        <div>
+          <h2 id="t-margem">A diferença</h2>
+          <p class="painel-desc">Votos de vantagem de quem está na frente. A faixa clara é a noite de 2022.</p>
+        </div>
+        <ul class="legenda">
+          <li><i class="chave bloco k-a"></i><span id="leg-m-a">Lula à frente</span></li>
+          <li><i class="chave bloco k-b"></i><span id="leg-m-b">Flávio à frente</span></li>
+        </ul>
+      </div>
+      <div class="grafico" id="g-margem"></div>
+    </section>
+
+    <section class="painel" aria-labelledby="t-cenarios">
+      <div class="painel-topo">
+        <div>
+          <h2 id="t-cenarios">Para onde vai</h2>
+          <p class="painel-desc">Três contas feitas com o que já foi apurado. São cenários aritméticos, não previsões.</p>
+        </div>
+      </div>
+      <div class="cenarios" id="cenarios">
+        <div class="cenario">
+          <h3>Se cada estado mantiver o placar de agora</h3>
+          <div class="cenario-valor" id="cen-estados">—</div>
+          <p id="cen-estados-nota">Soma aos votos já apurados os que faltam em cada estado, divididos na proporção atual daquele estado.</p>
+        </div>
+        <div class="cenario">
+          <h3>Se o resto da noite repetir 2022</h3>
+          <div class="cenario-valor" id="cen-sombra">—</div>
+          <p id="cen-sombra-nota">Aplica ao resultado final de 2022 a diferença entre Lula agora e Lula em 2022 com o mesmo percentual de seções.</p>
+        </div>
+        <div class="cenario">
+          <h3>Para virar</h3>
+          <div class="cenario-valor" id="cen-virar">—</div>
+          <p id="cen-virar-nota">Parcela dos votos válidos que faltam de que quem está atrás precisa para empatar.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="painel" aria-labelledby="t-estados">
+    <div class="painel-topo">
+      <div>
+        <h2 id="t-estados">Os estados</h2>
+        <p class="painel-desc">O preenchimento de cada quadrado sobe conforme as seções do estado são apuradas; a cor mostra quem lidera ali. Em 2022, a virada veio dos estados que apuraram mais tarde.</p>
+      </div>
+      <ul class="legenda">
+        <li><i class="chave bloco k-a"></i><span id="leg-uf-a">Lula lidera</span></li>
+        <li><i class="chave bloco k-b"></i><span id="leg-uf-b">Flávio lidera</span></li>
+      </ul>
+    </div>
+    <div class="estados">
+      <div class="mapa-uf" id="mapa-uf" role="group" aria-label="Mapa dos estados"></div>
+      <div class="faltam">
+        <h3>Onde estão os votos que faltam</h3>
+        <ol class="faltam-lista" id="faltam"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="painel" aria-labelledby="t-como">
+    <details class="tabela" id="como">
+      <summary id="t-como">Como esta página lê o TSE</summary>
+      <div class="notas">
+        <p>A página busca no navegador o mesmo arquivo que alimenta o site oficial de resultados: <code id="url-br"></code>. Ele traz seções apuradas, eleitores aptos e votos de cada candidato no Brasil. Os estados vêm de um arquivo por UF no mesmo formato, lidos um a cada poucos segundos.</p>
+        <p>O TSE publica só o placar do momento, sem histórico. Por isso a curva de 2026 começa quando a página é aberta e fica guardada neste navegador: recarregar não apaga o que já foi coletado. Depois da eleição, o TSE costuma publicar o histórico completo no Portal de Dados Abertos; carregue o CSV aqui para ver a noite inteira.</p>
+        <p class="carregar"><label class="botao" for="csv">Carregar histórico (CSV do TSE)</label><input type="file" id="csv" accept=".csv,text/csv" class="so-leitor"> <span id="csv-status"></span></p>
+        <p><button class="botao" id="limpar" type="button">Apagar a curva guardada neste navegador</button></p>
+      </div>
+    </details>
+  </section>
+
+  <footer class="notas">
+    <h2>Sobre os dados</h2>
+    <p>2026: arquivos de divulgação de resultados do TSE (eleição 6258, 2º turno federal), lidos a cada 15 segundos durante a apuração. 2022: <em>Histórico de totalização · Presidente · BR · 2º turno 2022</em>, Portal de Dados Abertos do TSE, com 5.286 registros entre 17h00 e 00h18.</p>
+    <p>Percentuais sobre os votos válidos. No modo "% de seções apuradas", cada ponto de 2026 é comparado ao instante de 2022 com o mesmo percentual de seções totalizadas. Horários de Brasília. Resultado oficial é o divulgado pelo TSE.</p>
+  </footer>
+  <div class="so-leitor" aria-live="polite" id="anuncio"></div>
+</main>
+<script src="dados/2022-2t-br.js"></script>
+<script src="assets/apuracao.js"></script>
+<script src="assets/pagina-2026.js"></script>
+</body>
+</html>
